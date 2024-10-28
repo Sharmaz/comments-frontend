@@ -7,7 +7,7 @@
     @apply text-slate-400 bg-background scroll-smooth;
   }
   h1 {
-    @apply text-2xl;
+    @apply text-3xl text-slate-300 font-bold;
   }
   h2 {
     @apply text-xl;
