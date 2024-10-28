@@ -1,19 +1,39 @@
-import { useState } from 'react'
+import useFetch from './hooks/useFetch';
+import config from '../config/index';
+import Comment from './components/Comment';
+
+type CommentProps = {
+  id: string
+  mail: string;
+  message: string;
+  createdAt: string;
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { baseUrl } = config;
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  };
+
+  const { comments, loading, error } = useFetch(`${baseUrl}/api/comments`, options);
+
+  if (error) {
+    return <div>Error</div>;
+  }
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-neutral-800">
-      <h1 className="text-5xl text-blue-400 text-center">React</h1>
-      <div className="p-8">
-        <button
-          className="bg-slate-950 px-4 py-2 rounded-lg text-slate-200"
-          onClick={() => setCount((counter) => counter + 1)}
-          type="button"
-        >
-          {`count is ${count}`}
-        </button>
-      </div>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <h1>Leave Comments</h1>
+      { comments.length > 0 &&
+        comments.map((comment: CommentProps) => <Comment key={comment.id} comment={comment} />)
+      }
     </div>
   )
 }

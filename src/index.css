@@ -1,3 +1,120 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply text-slate-400 bg-background scroll-smooth;
+  }
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  a {
+    @apply no-underline text-slate-300;
+  }
+
+  .purple-gradient {
+    @apply bg-gradient-to-tl from-heliotrope via-dark-orchid to-metallic-blue;
+  }
+
+  .orange-gradient {
+    @apply bg-gradient-to-tl from-dark-orchid via-heliotrope to-orange-peel;
+  }
+
+  .red-gradient {
+    @apply bg-gradient-to-tl from-orange-peel via-vivid-cerise to-heliotrope;
+  }
+
+  .button-purple {
+    @apply bg-[length:200%_200%]
+    purple-gradient
+    text-slate-300
+    rounded-full hover:animate-purple-animation;
+  }
+
+  .button-orange {
+    @apply bg-[length:200%_200%]
+    orange-gradient
+    text-slate-300
+    rounded-full hover:animate-purple-animation;
+  }
+
+  .work-card {
+    @apply bg-[length:600px_600px]
+    purple-gradient
+    rounded-2xl hover:animate-purple-animation;
+  }
+
+  .tag-purple {
+    @apply bg-[length:200%_200%]
+      purple-gradient
+      text-slate-300
+      rounded-full hover:animate-purple-animation;
+  }
+  .tag-orange {
+    @apply bg-[length:200%_200%]
+      orange-gradient
+      text-slate-300
+      rounded-full hover:animate-purple-animation;
+  }
+
+  .tag-red {
+    @apply bg-[length:200%_200%]
+      red-gradient
+      text-slate-300
+      rounded-full hover:animate-purple-animation;
+  }
+
+  .form-container {
+    @apply bg-[length:100%_100%]
+    purple-gradient
+    rounded-2xl
+  }
+
+  .form-field {
+    @apply bg-[length:120%_120%]
+    orange-gradient
+    rounded-2xl
+  }
+
+  .hamburger-element {
+    @apply purple-gradient absolute w-8 h-[3px]
+    transition-all ease-in-out delay-100
+  }
+
+  .subtitle {
+    @apply text-2xl md:text-4xl pt-16 drop-shadow-2xl text-slate-300;
+  }
+
+  .underline-link {
+    @apply underline underline-offset-[5px] decoration-dark-orchid;
+  }
+
+  .hero-style {
+    @apply before:absolute before:inset-0 before:p-[2px_0]
+    before:bg-clip-text before:text-fill-color-transparent
+    before:animate-text-gradient
+  }
+  .text-fill-color-transparent {
+    -webkit-text-fill-color: transparent;
+  }
+  .animation-delay-0 {
+    animation-delay: 0s;
+  }
+  .animation-delay-3 {
+    animation-delay: 3s;
+  }
+  .animation-delay-6 {
+    animation-delay: 6s;
+  }
+}
+
+img {
+  aspect-ratio: attr(width) / attr(height);
+}
