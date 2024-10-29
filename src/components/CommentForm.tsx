@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { v4 } from 'uuid';
+import { useState, useEffect } from 'react';
 import useFetch from '../hooks/useFetch';
 import config from '../../config/index';
 import { CommentType } from '../types/comment';
@@ -17,7 +16,11 @@ const CommentForm = ({ comments, setComments }: { comments: CommentType[], setCo
     body: JSON.stringify({ mail, message }),
   };
 
-  const { loading, error, fetchData } = useFetch(`${baseUrl}/api/comments`, options);
+  const { single, loading, error, fetchData } = useFetch(`${baseUrl}/api/comments`, options);
+
+  useEffect(() => {
+    setComments([...comments, single]);
+  }, [single]); // eslint-disable-line react-hooks/exhaustive-deps
   
   if (error) {
     return <div>Error</div>;
@@ -30,7 +33,6 @@ const CommentForm = ({ comments, setComments }: { comments: CommentType[], setCo
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await fetchData(options);
-    setComments([...comments, { id: v4(), mail, message, createdAt: new Date().toISOString() }]);
   };
 
   return (
@@ -47,10 +49,10 @@ const CommentForm = ({ comments, setComments }: { comments: CommentType[], setCo
         </div>
         <div className="form-field flex align-middle my-3 md:my-4">
           <textarea
-            className="rounded-2xl p-4 w-full m-0.5 bg-background h-72 md:h-auto"
+            className="rounded-2xl p-4 w-full m-0.5 bg-background md:h-auto"
             name="message"
             cols={30}
-            rows={5}
+            rows={3}
             placeholder="Add a comment"
             onChange={(e) => setMessage(e.target.value)}
           />
