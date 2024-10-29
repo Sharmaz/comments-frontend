@@ -9,7 +9,8 @@ type FetchOptions = {
   },
 };
 const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {}) => {
-  const [comments, setComments] = useState<CommentType[]>([]);
+  const [data, setData] = useState<CommentType[]>([]);
+  const [single, setSingle] = useState<any>({}); // eslint-disable-line @typescript-eslint/no-explicit-any
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -22,7 +23,11 @@ const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {
         throw new Error(`HTTP error status: ${response.status}`);
       }
       const json = await response.json();
-      setComments(json);
+      if (options.method === 'GET') {
+        setData(json);
+      } else {
+        setSingle(json);
+      }
       setLoading(false);
       setError('');
     } catch (err) {
@@ -40,7 +45,7 @@ const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {
     }
   }, [fetchData, immediate]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { comments, setComments, loading, error, fetchData };
+  return { data, setData, single, loading, error, fetchData };
 };
 
 export default useFetch;
