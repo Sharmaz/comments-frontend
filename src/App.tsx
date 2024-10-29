@@ -1,18 +1,37 @@
-import { useState } from 'react'
+import config from '../config/index';
+import CommentList from './components/CommentList';
+import CommentForm from './components/CommentForm';
+import useFetch from './hooks/useFetch';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { baseUrl } = config;
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  };
+
+  const { comments, setComments, loading, error } = useFetch(`${baseUrl}/api/comments`, options, { immediate: true });
+
+  if (error) {
+    return <div>Error</div>;
+  }
+
+  if (loading) {
+    return <div>Loading</div>;
+  }
+
+  console.log('App', comments);
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-neutral-800">
-      <h1 className="text-5xl text-blue-400 text-center">React</h1>
-      <div className="p-8">
-        <button
-          className="bg-slate-950 px-4 py-2 rounded-lg text-slate-200"
-          onClick={() => setCount((counter) => counter + 1)}
-          type="button"
-        >
-          {`count is ${count}`}
-        </button>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <div className="form-container w-full max-w-[320px] sm:max-w-[480px] md:max-w-[640px] p-px rounded-xl">
+        <div className="text-slate-200 bg-background rounded-xl p-4">
+          <h1 className="m-4">Leave Comments</h1>
+          <CommentForm comments={comments} setComments={setComments} />
+          <CommentList comments={comments} setComments={setComments} />
+        </div>
       </div>
     </div>
   )
