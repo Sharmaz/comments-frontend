@@ -5,12 +5,12 @@ API at https://density.ivanrobles.pro/api/comments/
 
 ## Frontend Project Stack
 - Typescript
-- React Testing Library with Jest (unit testing)
 - Vite
 - React
 - React Hooks
-### Extras
+- React Testing Library with Jest (unit testing)
 - Tailwind CSS
+### Extras
 - CI/CD with Github Actions (linting, testing, deployment)
 
 ## Backend Project Stack
@@ -18,6 +18,7 @@ API at https://density.ivanrobles.pro/api/comments/
 - Express
 - Node.js
 - MySQL
+- Sequelize
 - Jest and supertest (End to end testing)
 ### Extras
 - CI/CD with Github Actions (linting, testing, deployment)
