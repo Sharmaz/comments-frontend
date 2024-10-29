@@ -27,11 +27,8 @@ const Comment = ({ comment, comments, setComments }: { comment: CommentType, com
     }
 
     const lastComments = removeCommentById(comments, id);
-    console.log('Comment last comments', lastComments);
     setComments([...lastComments]);
   }
-
-  console.log('Comment', comments);
 
   const handleEdit = () => {
     setShowForm(true);

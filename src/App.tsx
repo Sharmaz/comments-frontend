@@ -22,8 +22,6 @@ function App() {
     return <div>Loading</div>;
   }
 
-  console.log('App', comments);
-
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <div className="form-container w-full max-w-[320px] sm:max-w-[480px] md:max-w-[640px] p-px rounded-xl">
