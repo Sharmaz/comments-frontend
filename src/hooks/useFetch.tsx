@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from 'react';
+import { CommentType } from '../types/comment';
 
 type FetchOptions = {
   method: string,
@@ -8,7 +9,7 @@ type FetchOptions = {
   },
 };
 const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {}) => {
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<CommentType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 

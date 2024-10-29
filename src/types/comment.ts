@@ -1,5 +1,5 @@
 export type CommentType = {
-  id: string
+  id: string;
   mail: string;
   message: string;
   createdAt: string;

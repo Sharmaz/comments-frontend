@@ -50,7 +50,7 @@ const UpdateCommentForm = ({
       return arr.find((el) => el.id === id);
     }
 
-    function updateComment(arr: CommentType[], id: string, changes: CommentType) {
+    function updateComment(arr: CommentType[], id: string, changes: any) {
       const commentToUpdate = findOneComment(arr, id);
       const updatedComment = {
         ...commentToUpdate,
