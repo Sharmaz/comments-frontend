@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 type FetchOptions = {
   method: string,
@@ -7,36 +7,39 @@ type FetchOptions = {
     api?: string
   },
 };
-const useFetch = (url: string, options: FetchOptions) => {
+const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {}) => {
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
+  const fetchData = useCallback(async (options: FetchOptions) => {
     if (!url) return;
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(url, options);
-        if (!response.ok) {
-          throw new Error(`HTTP error status: ${response.status}`);
-        }
-        const json = await response.json();
-        setComments(json);
-        setLoading(false);
-        setError('');
-      } catch (err) {
-        setLoading(false);
-        if (err instanceof Error) {
-          setError(err.message);
-        }
+    setLoading(true);
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`HTTP error status: ${response.status}`);
       }
-    };
+      const json = await response.json();
+      setComments(json);
+      setLoading(false);
+      setError('');
+    } catch (err) {
+      setLoading(false);
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    }
 
-    fetchData();
   }, [url]);
 
-  return { comments, loading, error };
+  useEffect(() => {
+    if (immediate) {
+      fetchData(options);
+    }
+  }, [fetchData, immediate]);
+
+  return { comments, setComments, loading, error, fetchData };
 };
 
 export default useFetch;
