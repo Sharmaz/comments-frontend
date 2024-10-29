@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import { commentDataMock } from './__mocks__/commentDataMock';
@@ -26,5 +26,7 @@ describe('App component', () => {
       (resolve) => resolve({ json: () => commentDataMock, ok: true }),
     ));
     act(() => render(<App />));
+    const text = await waitFor(() => screen.getByText(/Leave Comments/));
+    await expect(text).toBeInTheDocument();
   });
 });

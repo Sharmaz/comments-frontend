@@ -19,7 +19,9 @@ const CommentForm = ({ comments, setComments }: { comments: CommentType[], setCo
   const { single, loading, error, fetchData } = useFetch(`${baseUrl}/api/comments`, options);
 
   useEffect(() => {
-    setComments([...comments, single]);
+    if (single.id) {
+      setComments([...comments, single]);
+    }
   }, [single]); // eslint-disable-line react-hooks/exhaustive-deps
   
   if (error) {
