@@ -37,7 +37,7 @@ const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {
     if (immediate) {
       fetchData(options);
     }
-  }, [fetchData, immediate]);
+  }, [fetchData, immediate]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return { comments, setComments, loading, error, fetchData };
 };
