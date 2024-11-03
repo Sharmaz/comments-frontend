@@ -47,6 +47,7 @@ const CommentForm = ({ comments, setComments }: { comments: CommentType[], setCo
             name="email"
             placeholder="Email"
             onChange={(e) => setMail(e.target.value)}
+            required
           />
         </div>
         <div className="form-field flex align-middle my-3 md:my-4">
@@ -57,6 +58,7 @@ const CommentForm = ({ comments, setComments }: { comments: CommentType[], setCo
             rows={3}
             placeholder="Add a comment"
             onChange={(e) => setMessage(e.target.value)}
+            required
           />
         </div>
         <div className="button-purple flex mt-4 mx-2 w-[148px]">
