@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import useFetch from '../hooks/useFetch';
 import config from '../../config/index';
-import { CommentType } from '../types/comment';
+import { CommentType, UpdateCommentType } from '../types/comment';
 
 const UpdateCommentForm = ({
   comments,
@@ -50,23 +50,29 @@ const UpdateCommentForm = ({
       return arr.find((el) => el.id === id);
     }
 
-    function updateComment(arr: CommentType[], id: string, changes: any) { //eslint-disable-line @typescript-eslint/no-explicit-any
+    function updateComment(arr: CommentType[], id: string, changes: UpdateCommentType) {
       const commentToUpdate = findOneComment(arr, id);
-      const updatedComment = {
-        ...commentToUpdate,
-        ...changes,
-      };
+      if (commentToUpdate) {
+        const updatedComment = {
+          ...commentToUpdate,
+          ...changes,
+        };
 
-      arr.forEach((el, index) => {
-        if (el.id === id) {
-          arr.splice(index, 1, updatedComment);
-        }
-      });
-    
-      return [...arr];
+        arr.forEach((el, index) => {
+          if (el.id === id) {
+            arr.splice(index, 1, updatedComment);
+          }
+        });
+
+        return [...arr];
+      }
     }
 
-    setComments(updateComment(comments, id, { mail: updatedMail, message: updatedMessage }));
+    const updatedComments = updateComment(comments, id, { mail: updatedMail, message: updatedMessage });
+
+    if (updatedComments) {
+      setComments(updatedComments);
+    }
 
     setShowForm(false);
   };
@@ -82,6 +88,7 @@ const UpdateCommentForm = ({
             placeholder="Email"
             value={updatedMail}
             onChange={(e) => setUpdatedMail(e.target.value)}
+            required
           />
         </div>
         <div className="form-field flex align-middle my-3 md:my-4">
@@ -93,6 +100,7 @@ const UpdateCommentForm = ({
             placeholder="Add a comment"
             value={updatedMessage}
             onChange={(e) => setUpdatedMessage(e.target.value)}
+            required
           />
         </div>
         <div className="button-purple flex mt-4 mx-2 w-[148px]">

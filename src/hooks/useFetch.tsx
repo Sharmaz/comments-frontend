@@ -10,7 +10,12 @@ type FetchOptions = {
 };
 const useFetch = (url: string, options: FetchOptions, { immediate = false }  = {}) => {
   const [data, setData] = useState<CommentType[]>([]);
-  const [single, setSingle] = useState<any>({}); // eslint-disable-line @typescript-eslint/no-explicit-any
+  const [single, setSingle] = useState<CommentType>({
+    id: '',
+    mail: 'placeholder@gmail.com',
+    message:'placeholder message',
+    createdAt: ''
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
